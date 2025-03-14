@@ -44,7 +44,7 @@ export async function getPokemonAbilities(pokemon: string): Promise<PokemonResul
     const sortedAbilities = sortAbilities(detailedAbilities);
 
     return {
-      pokemon: capitalize(data.name),
+      name: capitalize(data.name),
       image: data.sprites.front_default,
       abilities: sortedAbilities
     };

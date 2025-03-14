@@ -20,7 +20,7 @@ export interface PokemonResponse {
 }
 
 export interface PokemonResult {
-  pokemon: string;
+  name: string;
   image: string;
   abilities: AbilityDetail[];
 }
