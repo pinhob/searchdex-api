@@ -1,8 +1,6 @@
 interface Ability {
-  ability: {
     name: string;
     url: string;
-  }
 }
 
 interface PokemonData {
@@ -23,11 +21,13 @@ async function getPokemonData(pokemon: string): Promise<PokemonResponse> {
   return response.json();
 }
 
-function sortAbilities(abilities: Ability[]): Ability[] {
-  return abilities.sort(
-    (a, b) => a.ability.name
+function sortAbilities(abilities: PokemonData[]): Ability[] {
+  return abilities
+  .map((data) => data.ability)
+  .sort(
+  (a, b) => a.name
       .toLowerCase()
-      .localeCompare(b.ability.name.toLowerCase())
+      .localeCompare(b.name.toLowerCase())
   );
 }
 
