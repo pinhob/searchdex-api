@@ -1,7 +1,10 @@
 import express, { Express, Request, Response } from 'express';
+import cors from 'cors';
 import { getPokemonAbilitiesHandler } from './controllers/pokemon.controller.js';
 
 const app: Express = express();
+
+app.use(cors())
 
 app.get('/ping', (_req: Request, res: Response) => {
   res.status(200).json({ "message": "pong" })
