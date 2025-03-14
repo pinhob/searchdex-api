@@ -1,19 +1,42 @@
-interface PokemonAbility {
+interface Ability {
   ability: {
     name: string;
     url: string;
-  };
+  }
+}
+
+interface PokemonData {
+  ability: {
+    name: string;
+    url: string;
+  },
+  is_hidden: boolean;
+  slot: number;
 }
 
 interface PokemonResponse {
-  abilities: PokemonAbility[];
+  abilities: PokemonData[];
 }
 
-export async function getPokemonAbilities(pokemon:string): Promise<PokemonResponse> {
-  try {
-    const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+async function getPokemonData(pokemon: string): Promise<PokemonResponse> {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+  return response.json();
+}
 
-    return result.json()
+function sortAbilities(abilities: Ability[]): Ability[] {
+  return abilities.sort(
+    (a, b) => a.ability.name
+      .toLowerCase()
+      .localeCompare(b.ability.name.toLowerCase())
+  );
+}
+
+export async function getPokemonAbilities(pokemon:string): Promise<Ability[]> {
+  try {
+    const data = await getPokemonData(pokemon);
+    const abilities = sortAbilities(data.abilities);
+
+    return abilities;
   } catch (error) {
     throw new Error("Error getting pokemon data");
   }
