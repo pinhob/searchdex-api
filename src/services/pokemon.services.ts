@@ -1,4 +1,5 @@
 import { AbilityDetail, PokemonData, PokemonResponse, PokemonResult, AllPokemonsResult } from '../types/pokemon.types.js';
+import { formatName, capitalize } from '../utils/formatString.js';
 
 async function getPokemonData(pokemon: string): Promise<PokemonResponse> {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
@@ -31,15 +32,6 @@ function sortAbilities(abilities: AbilityDetail[]): AbilityDetail[] {
   return [...abilities].sort((a, b) => 
     a.name.toLowerCase().localeCompare(b.name.toLowerCase())
   );
-}
-
-function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function formatName(name: string): string {
-  const separetedName = name.split('-').join(' ');
-  return capitalize(separetedName);
 }
 
 export async function getPokemonAbilities(pokemon: string): Promise<PokemonResult> {
