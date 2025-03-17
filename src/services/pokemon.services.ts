@@ -37,6 +37,11 @@ function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+function formatName(name: string): string {
+  const separetedName = name.split('-').join(' ');
+  return capitalize(separetedName);
+}
+
 export async function getPokemonAbilities(pokemon: string): Promise<PokemonResult> {
   try {
     const data = await getPokemonData(pokemon);
@@ -56,7 +61,12 @@ export async function getPokemonAbilities(pokemon: string): Promise<PokemonResul
 export async function getAllPokemons(): Promise<AllPokemonsResult[]> {
   try {
     const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1025");
-    const {results: pokemons} = await data.json();
+    const { results } = await data.json();
+
+    console.log("🚀 ~ getAllPokemons ~ results:", results)
+    const pokemons = results.map((pokemon: any) => (formatName(pokemon.name)))
+
+    console.log("🚀 ~ getAllPokemons ~ pokemons", pokemons)
 
     return pokemons;
   } catch (error) {
