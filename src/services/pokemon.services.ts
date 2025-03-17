@@ -1,5 +1,5 @@
 import { AbilityDetail, PokemonData, PokemonResponse, PokemonResult, AllPokemonsResult } from '../types/pokemon.types.js';
-import { formatName, capitalize } from '../utils/formatString.js';
+import { formatName, capitalize } from '../utils/formatString';
 
 async function getPokemonData(pokemon: string): Promise<PokemonResponse> {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
@@ -55,10 +55,7 @@ export async function getAllPokemons(): Promise<AllPokemonsResult[]> {
     const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1025");
     const { results } = await data.json();
 
-    console.log("🚀 ~ getAllPokemons ~ results:", results)
     const pokemons = results.map((pokemon: any) => (formatName(pokemon.name)))
-
-    console.log("🚀 ~ getAllPokemons ~ pokemons", pokemons)
 
     return pokemons;
   } catch (error) {
