@@ -1,4 +1,4 @@
-import { AbilityDetail, PokemonData, PokemonResponse, PokemonResult } from '../types/pokemon.types.js';
+import { AbilityDetail, PokemonData, PokemonResponse, PokemonResult, AllPokemonsResult } from '../types/pokemon.types.js';
 
 async function getPokemonData(pokemon: string): Promise<PokemonResponse> {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
@@ -50,6 +50,17 @@ export async function getPokemonAbilities(pokemon: string): Promise<PokemonResul
     };
   } catch (error) {
     throw new Error("Error getting pokemon data");
+  }
+}
+
+export async function getAllPokemons(): Promise<AllPokemonsResult[]> {
+  try {
+    const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1025");
+    const {results: pokemons} = await data.json();
+
+    return pokemons;
+  } catch (error) {
+    throw new Error("Error getting all pokemons data");
   }
 }
 

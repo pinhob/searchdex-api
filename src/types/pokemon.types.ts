@@ -24,3 +24,8 @@ export interface PokemonResult {
   image: string;
   abilities: AbilityDetail[];
 }
+
+export interface AllPokemonsResult {
+  name: string,
+  url: string
+}

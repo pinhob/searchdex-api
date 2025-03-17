@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
-import { getPokemonAbilitiesHandler } from './controllers/pokemon.controller';
+import { getPokemonAbilitiesHandler, getAllPokemonsHandler } from './controllers/pokemon.controller';
 
 const app: Express = express();
 
@@ -12,6 +12,10 @@ app.get('/ping', (_req: Request, res: Response) => {
 
 app.get('/abilities/:pokemon', (req, res) => {
   getPokemonAbilitiesHandler(req, res);
+})
+
+app.get('/pokemons', (req, res) => {
+  getAllPokemonsHandler(req, res);
 })
 
 if (process.env.NODE_ENV !== 'test') {

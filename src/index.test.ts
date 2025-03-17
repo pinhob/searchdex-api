@@ -16,9 +16,17 @@ const pikachuAbilities = {
 }
 
 describe('GET /abilities/:pokemon', () => {
-  it('should abilities for a given pokemon', async () => {
+  it('should return abilities for a given pokemon', async () => {
     const res = await request(app).get('/abilities/pikachu');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(pikachuAbilities);
+  })
+})
+
+describe('GET /pokemons', () => {
+  it('should return a list with all pokemons', async () => {
+    const res = await request(app).get('/pokemons');
+    expect(res.status).toBe(200);
+    expect(res.body.length).toBe(1025);
   })
 })
