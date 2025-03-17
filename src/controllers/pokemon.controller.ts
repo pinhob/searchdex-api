@@ -10,6 +10,7 @@ export async function getPokemonAbilitiesHandler(req: Request, res: Response): P
 
   try {
     const abilities = await getPokemonAbilities(pokemon);
+    console.log("🚀 ~ getPokemonAbilitiesHandler ~ abilities:", abilities)
 
     return res.status(200).json(abilities)
   } catch (error) {
