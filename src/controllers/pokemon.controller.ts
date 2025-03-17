@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getPokemonAbilities } from "../services/pokemon.services.js";
+import { getPokemonAbilities } from "../services/pokemon.services";
 
 export async function getPokemonAbilitiesHandler(req: Request, res: Response): Promise<Response> {
   const pokemon = req.params?.pokemon;

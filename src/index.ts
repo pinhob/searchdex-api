@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
-import { getPokemonAbilitiesHandler } from './controllers/pokemon.controller.js';
+import { getPokemonAbilitiesHandler } from './controllers/pokemon.controller';
 
 const app: Express = express();
 
@@ -17,3 +17,5 @@ app.get('/abilities/:pokemon', (req, res) => {
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 })
+
+export default app;
