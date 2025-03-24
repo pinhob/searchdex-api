@@ -1,11 +1,12 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { getPokemonAbilities, getAllPokemons } from "../services/pokemon.services";
+import { ValidationError } from "../utils/errors";
 
-export async function getPokemonAbilitiesHandler(req: Request, res: Response): Promise<Response> {
+export async function getPokemonAbilitiesHandler(req: Request, res: Response, next: NextFunction): Promise<any> {
   const pokemon = req.params?.pokemon;
 
   if (!pokemon) {
-    return res.status(400).json({ error: "Pokemon parameter is required" });
+    return new ValidationError("Pokemon parameter is required");
   }
 
   try {
@@ -13,16 +14,16 @@ export async function getPokemonAbilitiesHandler(req: Request, res: Response): P
 
     return res.status(200).json(abilities)
   } catch (error) {
-    return res.status(500).json({ error: "An error occurred while fetching Pokemon abilities" });
+    next(error);
   }
 }
 
-export async function getAllPokemonsHandler(req: Request, res: Response): Promise<Response> {
+export async function getAllPokemonsHandler(req: Request, res: Response, next: NextFunction): Promise<any> {
   try {
     const pokemons = await getAllPokemons(); 
 
     return res.status(200).json(pokemons);
   } catch (error) {
-    return res.status(500).json({ error: "An error occurred while fetching Pokemon abilities" });
+    next(error);
   }
 }
